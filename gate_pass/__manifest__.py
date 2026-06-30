@@ -1,6 +1,6 @@
 {
     'name': 'Gate Pass Management',
-    'version': '18.0.1.0.25',
+    'version': '18.0.1.0.27',
     'category': 'Operations',
     'summary': 'Material, visitor and vehicle gate pass management with approval workflow',
     'description': """
@@ -45,7 +45,7 @@ Features
             'gate_pass/static/src/css/gate_pass.css',
         ],
     },
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/screenshot_material_list.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
