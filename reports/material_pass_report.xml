@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_material_gate_pass" name="Material Gate Pass">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Header Section -->
+                            <div class="text-center mb-4" style="border-bottom: 3px solid #2E86AB; padding-bottom: 20px;">
+                                <h1 style="color: #2E86AB; font-weight: bold; margin-bottom: 10px;">MATERIAL GATE PASS</h1>
+                                <p style="color: #666; font-size: 14px;">
+                                    <t t-if="doc.company_id">
+                                        <span t-field="doc.company_id.name"/>
+                                        <t t-if="doc.company_id.street">, <span t-field="doc.company_id.street"/></t>
+                                        <t t-if="doc.company_id.city">, <span t-field="doc.company_id.city"/></t>
+                                        <t t-if="doc.company_id.country_id">, <span t-field="doc.company_id.country_id.name"/></t>
+                                    </t>
+                                </p>
+                            </div>
+                            
+                            <!-- Pass Information -->
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <table class="table table-bordered" style="margin-bottom: 0;">
+                                        <tr>
+                                            <td style="width: 40%; background-color: #f8f9fa;"><strong>Gate Pass Number:</strong></td>
+                                            <td><span t-field="doc.name" style="font-weight: bold; font-size: 16px;"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Request Date:</strong></td>
+                                            <td><span t-field="doc.date" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Movement Type:</strong></td>
+                                            <td>
+                                                <span t-if="doc.movement_type == 'out'">Material Outgoing</span>
+                                                <span t-if="doc.movement_type == 'in'">Material Incoming</span>
+                                                <span t-if="doc.movement_type == 'return'">Material Return</span>
+                                                <span t-if="doc.movement_type == 'transfer'">Internal Transfer</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Status:</strong></td>
+                                            <td>
+                                                <span t-if="doc.state == 'draft'" style="color: #6c757d;">Draft</span>
+                                                <span t-if="doc.state == 'approved'" style="color: #17a2b8;">Approved</span>
+                                                <span t-if="doc.state == 'out'" style="color: #ffc107;">Gate Out</span>
+                                                <span t-if="doc.state == 'returned'" style="color: #28a745;">Returned</span>
+                                                <span t-if="doc.state == 'cancelled'" style="color: #dc3545;">Cancelled</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-bordered" style="margin-bottom: 0;">
+                                        <tr>
+                                            <td style="width: 40%; background-color: #f8f9fa;"><strong>Total Items:</strong></td>
+                                            <td><span t-field="doc.total_items"/></td>
+                                        </tr>
+                                        <tr t-if="doc.expected_return_date">
+                                            <td style="background-color: #f8f9fa;"><strong>Expected Return:</strong></td>
+                                            <td><span t-field="doc.expected_return_date" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                        <tr t-if="doc.out_date">
+                                            <td style="background-color: #f8f9fa;"><strong>Gate Out Date:</strong></td>
+                                            <td><span t-field="doc.out_date" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                        <tr t-if="doc.returned_date">
+                                            <td style="background-color: #f8f9fa;"><strong>Return Date:</strong></td>
+                                            <td><span t-field="doc.returned_date" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Requester & Department -->
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width: 40%; background-color: #f8f9fa;"><strong>Requested By:</strong></td>
+                                            <td><span t-field="doc.requester_id"/></td>
+                                        </tr>
+                                        <tr t-if="doc.requester_email">
+                                            <td style="background-color: #f8f9fa;"><strong>Email:</strong></td>
+                                            <td><span t-field="doc.requester_email"/></td>
+                                        </tr>
+                                        <tr t-if="doc.requester_phone">
+                                            <td style="background-color: #f8f9fa;"><strong>Phone:</strong></td>
+                                            <td><span t-field="doc.requester_phone"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Department:</strong></td>
+                                            <td><span t-field="doc.department_id"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-bordered">
+                                        <tr t-if="doc.approved_by">
+                                            <td style="width: 40%; background-color: #f8f9fa;"><strong>Approved By:</strong></td>
+                                            <td><span t-field="doc.approved_by"/></td>
+                                        </tr>
+                                        <tr t-if="doc.approved_date">
+                                            <td style="background-color: #f8f9fa;"><strong>Approval Date:</strong></td>
+                                            <td><span t-field="doc.approved_date" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                        <tr t-if="doc.gate_officer_id">
+                                            <td style="background-color: #f8f9fa;"><strong>Gate Officer:</strong></td>
+                                            <td><span t-field="doc.gate_officer_id"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Transportation Details -->
+                            <div class="row mb-4" t-if="doc.vehicle_no or doc.driver_name">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Transportation Details</h4>
+                                    <table class="table table-bordered">
+                                        <tr t-if="doc.vehicle_no">
+                                            <td style="width: 20%; background-color: #f8f9fa;"><strong>Vehicle Number:</strong></td>
+                                            <td><span t-field="doc.vehicle_no"/></td>
+                                        </tr>
+                                        <tr t-if="doc.driver_name">
+                                            <td style="background-color: #f8f9fa;"><strong>Driver Name:</strong></td>
+                                            <td><span t-field="doc.driver_name"/></td>
+                                        </tr>
+                                        <tr t-if="doc.driver_license">
+                                            <td style="background-color: #f8f9fa;"><strong>Driver License:</strong></td>
+                                            <td><span t-field="doc.driver_license"/></td>
+                                        </tr>
+                                        <tr t-if="doc.driver_phone">
+                                            <td style="background-color: #f8f9fa;"><strong>Driver Contact:</strong></td>
+                                            <td><span t-field="doc.driver_phone"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Purpose -->
+                            <div class="row mb-4" t-if="doc.purpose">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Purpose</h4>
+                                    <div style="border: 1px solid #dee2e6; padding: 15px; background-color: #f8f9fa; min-height: 60px;">
+                                        <span t-field="doc.purpose"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Material Items -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Material Items</h4>
+                                    <table class="table table-bordered" style="font-size: 12px;">
+                                        <thead style="background-color: #2E86AB; color: white;">
+                                            <tr>
+                                                <th style="width: 5%; text-align: center;">#</th>
+                                                <th style="width: 30%;">Item Description</th>
+                                                <th style="width: 10%;">Item Code</th>
+                                                <th style="width: 10%; text-align: center;">Quantity</th>
+                                                <th style="width: 10%; text-align: center;">UOM</th>
+                                                <th style="width: 15%;">Serial Number</th>
+                                                <th style="width: 20%;">Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="serial" t-value="0"/>
+                                            <t t-foreach="doc.material_lines" t-as="line">
+                                                <t t-set="serial" t-value="serial + 1"/>
+                                                <tr>
+                                                    <td style="text-align: center;"><t t-esc="serial"/></td>
+                                                    <td><span t-field="line.item_name"/></td>
+                                                    <td><span t-field="line.item_code"/></td>
+                                                    <td style="text-align: center;"><span t-field="line.quantity"/></td>
+                                                    <td style="text-align: center;"><span t-field="line.uom"/></td>
+                                                    <td><span t-field="line.serial_number"/></td>
+                                                    <td><span t-field="line.remarks"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Signatures -->
+                            <div class="row mt-5">
+                                <div class="col-6">
+                                    <div style="border-top: 2px solid #000; padding-top: 10px; margin-top: 60px;">
+                                        <strong>Requester Signature:</strong>
+                                        <div style="height: 50px; margin-top: 10px;"></div>
+                                        <div style="margin-top: 5px;">
+                                            <span t-field="doc.requester_id"/>
+                                        </div>
+                                        <div style="font-size: 11px; color: #666;">
+                                            <span t-field="doc.date" t-options='{"widget": "date"}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div style="border-top: 2px solid #000; padding-top: 10px; margin-top: 60px;">
+                                        <strong>Gate Officer Signature:</strong>
+                                        <div style="height: 50px; margin-top: 10px;"></div>
+                                        <div style="margin-top: 5px;" t-if="doc.gate_officer_id">
+                                            <span t-field="doc.gate_officer_id"/>
+                                        </div>
+                                        <div style="font-size: 11px; color: #666;" t-if="doc.out_date">
+                                            <span t-field="doc.out_date" t-options='{"widget": "date"}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Footer -->
+                            <div class="row mt-4">
+                                <div class="col-12 text-center" style="font-size: 11px; color: #666; border-top: 1px solid #dee2e6; padding-top: 10px;">
+                                    <p>This is a computer-generated document. No signature is required.</p>
+                                    <p>Generated on: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_material_pass_report" model="ir.actions.report">
+        <field name="name">Material Gate Pass</field>
+        <field name="model">gate.material.pass</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gate_pass.report_material_gate_pass</field>
+        <field name="report_file">gate_pass.report_material_gate_pass</field>
+        <field name="print_report_name">'Material Gate Pass - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_gate_material_pass"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

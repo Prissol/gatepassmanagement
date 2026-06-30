@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gate_material_pass_all,gate.material.pass.all,model_gate_material_pass,group_gate_pass_admin,1,1,1,1
+access_gate_material_pass_manager,gate.material.pass.manager,model_gate_material_pass,group_department_manager,1,1,1,1
+access_gate_material_pass_officer,gate.material.pass.officer,model_gate_material_pass,group_gate_officer,1,1,1,0
+access_gate_material_pass_user,gate.material.pass.user,model_gate_material_pass,,1,0,1,0
+access_gate_material_pass_line_all,gate.material.pass.line.all,model_gate_material_pass_line,group_gate_pass_admin,1,1,1,1
+access_gate_material_pass_line_manager,gate.material.pass.line.manager,model_gate_material_pass_line,group_department_manager,1,1,1,1
+access_gate_material_pass_line_officer,gate.material.pass.line.officer,model_gate_material_pass_line,group_gate_officer,1,1,1,1
+access_gate_material_pass_line_user,gate.material.pass.line.user,model_gate_material_pass_line,,1,1,1,1
+access_gate_visitor_pass_all,gate.visitor.pass.all,model_gate_visitor_pass,group_gate_pass_admin,1,1,1,1
+access_gate_visitor_pass_officer,gate.visitor.pass.officer,model_gate_visitor_pass,group_gate_officer,1,1,1,0
+access_gate_visitor_pass_user,gate.visitor.pass.user,model_gate_visitor_pass,,1,0,1,0
+access_gate_vehicle_pass_all,gate.vehicle.pass.all,model_gate_vehicle_pass,group_gate_pass_admin,1,1,1,1
+access_gate_vehicle_pass_officer,gate.vehicle.pass.officer,model_gate_vehicle_pass,group_gate_officer,1,1,1,0
+access_gate_vehicle_pass_user,gate.vehicle.pass.user,model_gate_vehicle_pass,,1,0,1,0
+

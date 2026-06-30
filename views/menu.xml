@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level app root (application=True in manifest) -->
+    <menuitem id="menu_gate_management"
+              name="Gate Pass"
+              action="action_material_pass"
+              sequence="100"
+              web_icon="gate_pass,static/description/icon.png"
+              groups="gate_pass.group_gate_pass_user,gate_pass.group_gate_pass_admin,gate_pass.group_department_manager,gate_pass.group_gate_officer"/>
+
+    <!-- Material Gate Pass Menu -->
+    <menuitem id="menu_material_gate_pass" 
+              name="Material Gate Pass" 
+              parent="menu_gate_management"
+              action="action_material_pass"
+              sequence="10"
+              groups="gate_pass.group_gate_pass_user,gate_pass.group_gate_pass_admin,gate_pass.group_department_manager,gate_pass.group_gate_officer"/>
+
+    <!-- Visitor Gate Pass Menu -->
+    <menuitem id="menu_visitor_gate_pass" 
+              name="Visitor Gate Pass" 
+              parent="menu_gate_management"
+              action="action_visitor_pass"
+              sequence="20"
+              groups="gate_pass.group_gate_pass_user,gate_pass.group_gate_pass_admin,gate_pass.group_gate_officer"/>
+
+    <!-- Vehicle Gate Pass Menu -->
+    <menuitem id="menu_vehicle_gate_pass" 
+              name="Vehicle Gate Pass" 
+              parent="menu_gate_management"
+              action="action_vehicle_pass"
+              sequence="30"
+              groups="gate_pass.group_gate_pass_user,gate_pass.group_gate_pass_admin,gate_pass.group_gate_officer"/>
+</odoo>
+

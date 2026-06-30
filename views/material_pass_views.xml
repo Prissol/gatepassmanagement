@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Material Gate Pass List View -->
+    <record id="view_material_pass_tree" model="ir.ui.view">
+        <field name="name">gate.material.pass.tree</field>
+        <field name="model">gate.material.pass</field>
+        <field name="arch" type="xml">
+            <list string="Material Gate Pass" class="gate-pass-list" decoration-muted="state == 'cancelled'" 
+                  decoration-success="state == 'returned'" decoration-info="state == 'approved'"
+                  default_order="date desc">
+                <field name="name" string="Pass Number"/>
+                <field name="date" string="Request Date"/>
+                <field name="requester_id"/>
+                <field name="department_id"/>
+                <field name="movement_type"/>
+                <field name="total_items" string="Items"/>
+                <field name="vehicle_no" string="Vehicle"/>
+                <field name="state" widget="badge" 
+                       decoration-info="state == 'approved'"
+                       decoration-success="state == 'returned'"
+                       decoration-danger="state == 'cancelled'"
+                       decoration-warning="state == 'out'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Material Gate Pass Form View -->
+    <record id="view_material_pass_form" model="ir.ui.view">
+        <field name="name">gate.material.pass.form</field>
+        <field name="model">gate.material.pass</field>
+        <field name="arch" type="xml">
+            <form string="Material Gate Pass" class="gate-pass-form">
+                <header>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-primary" 
+                            invisible="state != 'draft'"
+                            groups="gate_pass.group_department_manager"
+                            confirm="Are you sure you want to approve this gate pass?"/>
+                    <button name="action_mark_out" string="Proceed to Move" type="object" 
+                            class="btn-primary"
+                            invisible="state != 'approved'"
+                            confirm="Proceed to move this material?"/>
+                    <button name="action_mark_returned" string="Mark as Returned" type="object" 
+                            class="btn-primary"
+                            invisible="state != 'out'"
+                            confirm="Mark this material as returned?"/>
+                    <button name="action_cancel" string="Cancel" type="object" 
+                            class="btn-secondary"
+                            invisible="state in ['returned', 'cancelled']"
+                            confirm="Are you sure you want to cancel this gate pass?"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" 
+                            class="btn-secondary"
+                            invisible="state != 'cancelled'"
+                            groups="gate_pass.group_gate_pass_admin"
+                            confirm="Reset this gate pass to draft?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,out,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_material_pass_report)d" type="action" 
+                                class="oe_stat_button" icon="fa-print" string="Print"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Request Information">
+                            <field name="date" widget="datetime" 
+                                   help="Date and time when the gate pass request was created"/>
+                            <field name="movement_type" 
+                                   help="Type of material movement: Outgoing (materials leaving), Incoming (materials entering), Return (materials being returned), or Internal Transfer (materials moving within the organization)"/>
+                            <field name="requester_id" 
+                                   help="User who is requesting this material gate pass. You can create a new user if not found in the list."/>
+                            <field name="requester_email" readonly="1" 
+                                   help="Email address of the person requesting this gate pass (automatically retrieved from user profile)"/>
+                            <field name="requester_phone" readonly="1" 
+                                   help="Phone number of the person requesting this gate pass (automatically retrieved from user profile)"/>
+                            <field name="department_id" 
+                                   help="Department requesting the material gate pass. You can create a new department if not found in the list."/>
+                        </group>
+                        <group string="Approval Information">
+                            <field name="approved_by" readonly="1" 
+                                   help="User who approved this gate pass"/>
+                            <field name="approved_date" widget="datetime" readonly="1" 
+                                   help="Date and time when this gate pass was approved"/>
+                            <field name="gate_officer_id" readonly="state in ['draft', 'approved']" 
+                                   help="Gate officer who processed this gate pass at the gate"/>
+                            <field name="total_items" readonly="1" 
+                                   help="Total number of material items in this gate pass"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Transportation Details">
+                            <field name="vehicle_no" placeholder="e.g., ABC-1234" 
+                                   help="Vehicle registration number that will transport the materials"/>
+                            <field name="driver_name" 
+                                   help="Name of the driver who will transport the materials"/>
+                            <field name="driver_license" 
+                                   help="Driver's license number for identification purposes"/>
+                            <field name="driver_phone" 
+                                   help="Contact phone number of the driver"/>
+                        </group>
+                        <group string="Timeline">
+                            <field name="expected_return_date" widget="datetime" 
+                                   help="Expected date and time when the materials will be returned (for outgoing materials)"/>
+                            <field name="out_date" widget="datetime" readonly="1" 
+                                   help="Actual date and time when materials left the gate"/>
+                            <field name="returned_date" widget="datetime" readonly="1" 
+                                   help="Actual date and time when materials were returned"/>
+                        </group>
+                    </group>
+                    <group string="Purpose">
+                        <field name="purpose" placeholder="Please provide detailed purpose for material movement..." 
+                               help="Detailed description of why the materials are being moved"/>
+                    </group>
+                    <notebook>
+                        <page string="Material Items" name="items">
+                            <field name="material_lines">
+                                <list editable="bottom" string="Material Items" class="o_list_table">
+                                    <field name="sequence" widget="handle" column_invisible="1"/>
+                                    <field name="item_name" string="Item Description" required="1" options="{'column_invisible': False}" style="width: 25%;" 
+                                           help="Description or name of the material item"/>
+                                    <field name="item_code" string="Item Code" options="{'column_invisible': False}" style="width: 15%;" 
+                                           help="Unique code or SKU of the material item"/>
+                                    <field name="quantity" string="Quantity" required="1" digits="[16,3]" options="{'column_invisible': False}" style="width: 10%;" 
+                                           help="Quantity of the material item being moved"/>
+                                    <field name="uom" string="UOM" options="{'column_invisible': False}" style="width: 10%;" 
+                                           help="Unit of Measure (e.g., Pcs, Kg, Liters)"/>
+                                    <field name="serial_number" string="Serial #" options="{'column_invisible': False}" style="width: 15%;" 
+                                           help="Serial number of the item if applicable"/>
+                                    <field name="remarks" options="{'column_invisible': False}" style="width: 25%;" 
+                                           help="Additional remarks or notes about this item"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <group>
+                                <field name="attachment" filename="attachment_filename" widget="binary" 
+                                       help="Upload supporting documents related to this gate pass (e.g., approval letters, invoices)"/>
+                                <field name="attachment_filename" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Internal Notes" name="notes" groups="gate_pass.group_gate_pass_admin,gate_pass.group_department_manager">
+                            <group>
+                                <field name="notes" placeholder="Internal notes visible only to authorized personnel..." 
+                                       help="Internal notes and comments visible only to administrators and department managers"/>
+                            </group>
+                        </page>
+                        <page string="History &amp; Tracking" name="history">
+                            <group>
+                                <group string="Timeline">
+                                    <field name="out_date" widget="datetime" readonly="1"/>
+                                    <field name="returned_date" widget="datetime" readonly="1"/>
+                                </group>
+                                <group string="Audit Trail">
+                                    <field name="create_date" widget="datetime" readonly="1"/>
+                                    <field name="write_date" widget="datetime" readonly="1"/>
+                                    <field name="create_uid" readonly="1"/>
+                                    <field name="write_uid" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Material Gate Pass Search View -->
+    <record id="view_material_pass_search" model="ir.ui.view">
+        <field name="name">gate.material.pass.search</field>
+        <field name="model">gate.material.pass</field>
+        <field name="arch" type="xml">
+            <search string="Material Gate Pass">
+                <field name="name" string="Pass Number"/>
+                <field name="requester_id"/>
+                <field name="department_id"/>
+                <field name="vehicle_no"/>
+                <field name="driver_name"/>
+                <field name="driver_phone"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Gate Out" name="out" domain="[('state', '=', 'out')]"/>
+                <filter string="Returned" name="returned" domain="[('state', '=', 'returned')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="My Requests" name="my_requests" 
+                        domain="[('requester_id', '=', uid)]"/>
+                <filter string="Pending Approval" name="pending_approval"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Outstanding" name="outstanding"
+                        domain="[('state', 'in', ['approved', 'out'])]"/>
+                <separator/>
+                <filter string="Today" name="today" 
+                        domain="[('date', '>=', datetime.datetime.now().replace(hour=0, minute=0, second=0))]"/>
+                <filter string="This Week" name="this_week"
+                        domain="[('date', '>=', (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="This Month" name="this_month"
+                        domain="[('date', '>=', datetime.datetime.now().replace(day=1).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Movement Type" name="group_movement_type" context="{'group_by': 'movement_type'}"/>
+                    <filter string="Requester" name="group_requester" context="{'group_by': 'requester_id'}"/>
+                    <filter string="Department" name="group_department" context="{'group_by': 'department_id'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Material Gate Pass Action -->
+    <record id="action_material_pass" model="ir.actions.act_window">
+        <field name="name">Material Gate Pass</field>
+        <field name="res_model">gate.material.pass</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_state': 'draft', 'default_movement_type': 'out'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Material Gate Pass!
+            </p>
+            <p>
+                Track material movements in and out of your premises with detailed approval workflow.
+                <ul>
+                    <li>Request material gate passes with detailed item lists</li>
+                    <li>Get approvals from department managers</li>
+                    <li>Track gate out and return dates</li>
+                    <li>Generate professional gate pass reports</li>
+                </ul>
+            </p>
+        </field>
+    </record>
+</odoo>

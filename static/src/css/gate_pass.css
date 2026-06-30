@@ -1,0 +1,701 @@
+/* Gate Pass Management - Beautiful Purple Theme UI/UX */
+
+/* ============================================
+   FORM VIEW STYLING
+   ============================================ */
+
+.gate-pass-form .o_form_view {
+    background: linear-gradient(135deg, #f8f6f9 0%, #ffffff 100%);
+}
+
+/* Summary Cards with Purple Gradient */
+.gate-pass-form .oe_button_box {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(135, 90, 123, 0.15);
+    margin-bottom: 20px;
+}
+
+.gate-pass-form .oe_button_box .oe_stat_button {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 4px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(135, 90, 123, 0.08);
+}
+
+.gate-pass-form .oe_button_box .oe_stat_button:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(135, 90, 123, 0.2);
+}
+
+.gate-pass-form .oe_button_box .oe_stat_button .o_stat_text {
+    color: #875A7B;
+    font-weight: 600;
+}
+
+.gate-pass-form .oe_button_box .oe_stat_button .fa {
+    color: #875A7B;
+}
+
+/* Form Groups with Top Accent Bars */
+.gate-pass-form .o_group {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.08);
+    border-top: 4px solid;
+    border-image: linear-gradient(90deg, #875A7B 0%, #a67fa3 100%) 1;
+    position: relative;
+}
+
+.gate-pass-form .o_group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #875A7B 0%, #a67fa3 100%);
+    border-radius: 12px 12px 0 0;
+}
+
+.gate-pass-form .o_group .o_group_label {
+    color: #875A7B;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(135, 90, 123, 0.1);
+}
+
+/* Input Fields with Purple Focus States */
+.gate-pass-form .o_field_widget input[type="text"],
+.gate-pass-form .o_field_widget input[type="number"],
+.gate-pass-form .o_field_widget input[type="email"],
+.gate-pass-form .o_field_widget input[type="tel"],
+.gate-pass-form .o_field_widget textarea,
+.gate-pass-form .o_field_widget select {
+    border: 2px solid #e0d5e3;
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: all 0.25s ease;
+    background: #ffffff;
+    width: 100%;
+    min-height: 40px;
+    box-sizing: border-box;
+}
+
+.gate-pass-form .o_field_widget input[type="text"]:focus,
+.gate-pass-form .o_field_widget input[type="number"]:focus,
+.gate-pass-form .o_field_widget input[type="email"]:focus,
+.gate-pass-form .o_field_widget input[type="tel"]:focus,
+.gate-pass-form .o_field_widget textarea:focus,
+.gate-pass-form .o_field_widget select:focus {
+    border-color: #875A7B;
+    box-shadow: 0 0 0 3px rgba(135, 90, 123, 0.1);
+    outline: none;
+}
+
+.gate-pass-form .o_field_widget textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Readonly Fields */
+.gate-pass-form .o_field_widget.o_readonly_modifier input[type="text"],
+.gate-pass-form .o_field_widget.o_readonly_modifier input[type="number"],
+.gate-pass-form .o_field_widget.o_readonly_modifier input[type="email"],
+.gate-pass-form .o_field_widget.o_readonly_modifier input[type="tel"],
+.gate-pass-form .o_field_widget.o_readonly_modifier select {
+    border: 2px solid #e0d5e3;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: #f8f9fa;
+    width: 100%;
+    min-height: 40px;
+    box-sizing: border-box;
+    color: #495057;
+}
+
+/* Many2one Fields - Fix Nested Boxes Only */
+.gate-pass-form .o_field_many2one {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.gate-pass-form .o_field_many2one .o_input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.gate-pass-form .o_field_many2one .o_input_dropdown {
+    width: 100% !important;
+    min-height: 40px;
+    border: 2px solid #e0d5e3 !important;
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.gate-pass-form .o_field_many2one input {
+    width: 100% !important;
+    min-height: 40px;
+    border: 2px solid #e0d5e3 !important;
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.gate-pass-form .o_field_many2one.o_readonly_modifier .o_input_dropdown,
+.gate-pass-form .o_field_many2one.o_readonly_modifier input {
+    background: #f8f9fa !important;
+    border: 2px solid #e0d5e3 !important;
+}
+
+/* Notebook Tabs with Gradient Backgrounds */
+.gate-pass-form .o_notebook {
+    margin-top: 20px;
+}
+
+.gate-pass-form .o_notebook .nav-tabs {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 8px 8px 0 8px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.15);
+}
+
+.gate-pass-form .o_notebook .nav-tabs .nav-item .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 8px 8px 0 0;
+    padding: 12px 20px;
+    margin-right: 4px;
+    transition: all 0.25s ease;
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+}
+
+.gate-pass-form .o_notebook .nav-tabs .nav-item .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.gate-pass-form .o_notebook .nav-tabs .nav-item .nav-link.active {
+    background: #ffffff;
+    color: #875A7B;
+    font-weight: 600;
+    box-shadow: 0 -2px 8px rgba(135, 90, 123, 0.1);
+}
+
+.gate-pass-form .o_notebook .tab-content {
+    background: #ffffff;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.08);
+    border: 1px solid rgba(135, 90, 123, 0.1);
+    border-top: none;
+}
+
+/* Buttons with Purple Gradients */
+.gate-pass-form .o_form_button_edit,
+.gate-pass-form .o_form_button_save,
+.gate-pass-form .o_form_button_cancel,
+.gate-pass-form button[type="object"] {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    border: none;
+}
+
+.gate-pass-form .btn-primary,
+.gate-pass-form button.btn-primary {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(135, 90, 123, 0.25);
+}
+
+.gate-pass-form .btn-primary:hover,
+.gate-pass-form button.btn-primary:hover {
+    background: linear-gradient(135deg, #a67fa3 0%, #875A7B 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(135, 90, 123, 0.35);
+}
+
+.gate-pass-form .btn-secondary,
+.gate-pass-form button.btn-secondary {
+    background: linear-gradient(135deg, #f0e8f2 0%, #ffffff 100%);
+    color: #875A7B;
+    border: 2px solid #875A7B;
+}
+
+.gate-pass-form .btn-secondary:hover,
+.gate-pass-form button.btn-secondary:hover {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(135, 90, 123, 0.25);
+}
+
+/* Status Bar Styling */
+.gate-pass-form .o_statusbar_status {
+    background: linear-gradient(135deg, #f8f6f9 0%, #ffffff 100%);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.08);
+}
+
+.gate-pass-form .o_statusbar_status .o_statusbar_status button {
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 0 4px;
+    transition: all 0.25s ease;
+    font-weight: 500;
+}
+
+.gate-pass-form .o_statusbar_status .o_statusbar_status button.btn-primary {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+}
+
+/* Title Styling */
+.gate-pass-form .oe_title {
+    margin-bottom: 20px;
+}
+
+.gate-pass-form .oe_title h1 {
+    color: #875A7B;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(135, 90, 123, 0.1);
+}
+
+/* ============================================
+   LIST VIEW STYLING
+   ============================================ */
+
+.gate-pass-list .o_list_view {
+    background: linear-gradient(135deg, #f8f6f9 0%, #ffffff 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(135, 90, 123, 0.1);
+}
+
+/* Table Headers with Default Color */
+.gate-pass-list .o_list_table thead {
+    background: #f8f9fa;
+}
+
+.gate-pass-list .o_list_table thead th {
+    color: #495057;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    padding: 16px 12px;
+    border: none;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.gate-pass-list .o_list_table thead th .o_column_sortable {
+    color: #495057;
+}
+
+.gate-pass-list .o_list_table thead th .o_column_sortable:hover {
+    color: #875A7B;
+}
+
+/* Table Rows */
+.gate-pass-list .o_list_table tbody tr {
+    background: #ffffff;
+    transition: all 0.25s ease;
+    border-bottom: 1px solid rgba(135, 90, 123, 0.08);
+}
+
+.gate-pass-list .o_list_table tbody tr:hover {
+    background: linear-gradient(90deg, rgba(135, 90, 123, 0.05) 0%, #ffffff 100%);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.1);
+}
+
+.gate-pass-list .o_list_table tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+
+/* Badge Styling */
+.gate-pass-list .badge,
+.gate-pass-form .badge {
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.gate-pass-list .badge.badge-info,
+.gate-pass-form .badge.badge-info {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    color: #ffffff;
+}
+
+.gate-pass-list .badge.badge-success,
+.gate-pass-form .badge.badge-success {
+    background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+    color: #ffffff;
+}
+
+.gate-pass-list .badge.badge-warning,
+.gate-pass-form .badge.badge-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ffd54f 100%);
+    color: #333333;
+}
+
+.gate-pass-list .badge.badge-danger,
+.gate-pass-form .badge.badge-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #e57373 100%);
+    color: #ffffff;
+}
+
+/* Search View Styling */
+.gate-pass-list .o_searchview {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.08);
+    border: 2px solid rgba(135, 90, 123, 0.1);
+    margin-bottom: 16px;
+}
+
+.gate-pass-list .o_searchview .o_searchview_input {
+    border-radius: 8px;
+    border: 2px solid #e0d5e3;
+    padding: 10px 14px;
+}
+
+.gate-pass-list .o_searchview .o_searchview_input:focus {
+    border-color: #875A7B;
+    box-shadow: 0 0 0 3px rgba(135, 90, 123, 0.1);
+}
+
+.gate-pass-list .o_searchview_facet {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    margin: 4px;
+}
+
+.gate-pass-list .o_searchview_facet .o_facet_remove {
+    color: #ffffff;
+}
+
+.gate-pass-list .o_searchview_facet .o_facet_remove:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Filter Buttons */
+.gate-pass-list .o_searchview .o_searchview_autocomplete li.o-selection-focus {
+    background: linear-gradient(135deg, rgba(135, 90, 123, 0.1) 0%, rgba(166, 127, 163, 0.1) 100%);
+    color: #875A7B;
+}
+
+/* Control Panel */
+.gate-pass-list .o_control_panel {
+    background: linear-gradient(135deg, #f8f6f9 0%, #ffffff 100%);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.08);
+}
+
+.gate-pass-list .o_control_panel .o_cp_buttons .btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.gate-pass-list .o_control_panel .o_cp_buttons .btn-primary {
+    background: linear-gradient(135deg, #875A7B 0%, #a67fa3 100%);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(135, 90, 123, 0.25);
+}
+
+.gate-pass-list .o_control_panel .o_cp_buttons .btn-primary:hover {
+    background: linear-gradient(135deg, #a67fa3 0%, #875A7B 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(135, 90, 123, 0.35);
+}
+
+/* ============================================
+   ICON STYLING
+   ============================================ */
+
+/* Icons on dark backgrounds (white) */
+.gate-pass-form .oe_button_box .fa,
+.gate-pass-list .o_list_table thead .fa,
+.gate-pass-list .o_searchview_facet .fa {
+    color: #ffffff;
+}
+
+/* Icons on light backgrounds (purple) */
+.gate-pass-form .o_group .fa,
+.gate-pass-form .o_notebook .nav-tabs .nav-link.active .fa,
+.gate-pass-form .o_field_widget .fa {
+    color: #875A7B;
+}
+
+/* Icon hover effects */
+.gate-pass-form .oe_button_box .oe_stat_button:hover .fa,
+.gate-pass-list .o_list_table thead th:hover .fa {
+    color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
+    transition: all 0.25s ease;
+}
+
+/* ============================================
+   SPECIAL ELEMENTS
+   ============================================ */
+
+/* Chatter Styling */
+.gate-pass-form .o_Chatter {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(135, 90, 123, 0.08);
+}
+
+.gate-pass-form .o_Chatter .o_ChatterTopbar {
+    border-bottom: 2px solid rgba(135, 90, 123, 0.1);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.gate-pass-form .o_Chatter .o_ChatterTopbar .o_ChatterTopbar_button {
+    color: #875A7B;
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: all 0.25s ease;
+}
+
+.gate-pass-form .o_Chatter .o_ChatterTopbar .o_ChatterTopbar_button:hover {
+    background: rgba(135, 90, 123, 0.1);
+    color: #875A7B;
+}
+
+/* Empty State */
+.gate-pass-list .o_view_nocontent {
+    background: linear-gradient(135deg, #f8f6f9 0%, #ffffff 100%);
+    border-radius: 12px;
+    padding: 40px;
+}
+
+.gate-pass-list .o_view_nocontent .o_view_nocontent_smiling_face {
+    color: #875A7B;
+    font-size: 64px;
+}
+
+.gate-pass-list .o_view_nocontent p {
+    color: #875A7B;
+}
+
+/* List View Editable Rows */
+.gate-pass-form .o_list_table tbody tr.o_selected_row {
+    background: linear-gradient(90deg, rgba(135, 90, 123, 0.1) 0%, #ffffff 100%);
+    border-left: 4px solid #875A7B;
+}
+
+.gate-pass-form .o_list_table tbody tr.o_selected_row td {
+    background: transparent;
+}
+
+/* Material Items Table Styling */
+.gate-pass-form .o_list_table tbody td {
+    padding: 12px 8px;
+    vertical-align: middle;
+}
+
+.gate-pass-form .o_list_table tbody td input[type="text"],
+.gate-pass-form .o_list_table tbody td input[type="number"],
+.gate-pass-form .o_list_table tbody td textarea {
+    width: 100%;
+    min-width: 80px;
+    max-width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #e0d5e3;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.gate-pass-form .o_list_table tbody td textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.gate-pass-form .o_list_table thead th {
+    padding: 12px 8px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1200px) {
+    .gate-pass-form .o_group {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gate-pass-form .o_group {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .gate-pass-form .o_group .o_group_label {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .gate-pass-form .o_field_widget input[type="text"],
+    .gate-pass-form .o_field_widget input[type="number"],
+    .gate-pass-form .o_field_widget input[type="email"],
+    .gate-pass-form .o_field_widget input[type="tel"],
+    .gate-pass-form .o_field_widget textarea,
+    .gate-pass-form .o_field_widget select {
+        padding: 8px 12px;
+        min-height: 36px;
+        font-size: 14px;
+    }
+    
+    .gate-pass-form .o_field_many2one .o_input_dropdown,
+    .gate-pass-form .o_field_many2one input {
+        padding: 8px 12px;
+        min-height: 36px;
+        font-size: 14px;
+    }
+    
+    .gate-pass-form .o_notebook .nav-tabs .nav-item .nav-link {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .gate-pass-form .oe_button_box {
+        padding: 12px;
+    }
+    
+    .gate-pass-form .oe_button_box .oe_stat_button {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    .gate-pass-list .o_list_table thead th {
+        padding: 12px 8px;
+        font-size: 11px;
+    }
+    
+    .gate-pass-list .o_list_table tbody td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+    
+    .gate-pass-form .o_list_table tbody td input[type="text"],
+    .gate-pass-form .o_list_table tbody td input[type="number"],
+    .gate-pass-form .o_list_table tbody td textarea {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .gate-pass-form .o_group {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    .gate-pass-form .o_group .o_group_label {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+    
+    .gate-pass-form .o_field_widget input[type="text"],
+    .gate-pass-form .o_field_widget input[type="number"],
+    .gate-pass-form .o_field_widget input[type="email"],
+    .gate-pass-form .o_field_widget input[type="tel"],
+    .gate-pass-form .o_field_widget textarea,
+    .gate-pass-form .o_field_widget select {
+        padding: 6px 10px;
+        min-height: 32px;
+        font-size: 13px;
+    }
+    
+    .gate-pass-form .o_field_many2one .o_input_dropdown,
+    .gate-pass-form .o_field_many2one input {
+        padding: 6px 10px;
+        min-height: 32px;
+        font-size: 13px;
+    }
+    
+    .gate-pass-form .o_notebook .nav-tabs {
+        padding: 6px 6px 0 6px;
+    }
+    
+    .gate-pass-form .o_notebook .nav-tabs .nav-item .nav-link {
+        padding: 8px 12px;
+        font-size: 12px;
+        margin-right: 2px;
+    }
+    
+    .gate-pass-form .o_notebook .tab-content {
+        padding: 12px;
+    }
+    
+    .gate-pass-form .oe_button_box {
+        padding: 10px;
+    }
+    
+    .gate-pass-form .oe_button_box .oe_stat_button {
+        padding: 8px;
+        font-size: 11px;
+    }
+    
+    .gate-pass-form .btn-primary,
+    .gate-pass-form .btn-secondary,
+    .gate-pass-form button[type="object"] {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+/* Smooth Transitions for All Elements */
+.gate-pass-form *,
+.gate-pass-list * {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* Print Styles */
+@media print {
+    .gate-pass-form .oe_button_box,
+    .gate-pass-form .o_Chatter,
+    .gate-pass-list .o_control_panel,
+    .gate-pass-list .o_searchview {
+        display: none;
+    }
+}

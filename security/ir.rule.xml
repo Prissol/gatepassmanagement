@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Multi-company security rules -->
+        <!-- Material Gate Pass: Users can only see records from their allowed companies -->
+        <record id="gate_material_pass_company_rule" model="ir.rule">
+            <field name="name">Gate Material Pass: multi-company</field>
+            <field name="model_id" ref="model_gate_material_pass"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <!-- Visitor Gate Pass: Users can only see records from their allowed companies -->
+        <record id="gate_visitor_pass_company_rule" model="ir.rule">
+            <field name="name">Gate Visitor Pass: multi-company</field>
+            <field name="model_id" ref="model_gate_visitor_pass"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <!-- Vehicle Gate Pass: Users can only see records from their allowed companies -->
+        <record id="gate_vehicle_pass_company_rule" model="ir.rule">
+            <field name="name">Gate Vehicle Pass: multi-company</field>
+            <field name="model_id" ref="model_gate_vehicle_pass"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <!-- Material Gate Pass Line: Users can only see lines from their allowed companies -->
+        <record id="gate_material_pass_line_company_rule" model="ir.rule">
+            <field name="name">Gate Material Pass Line: multi-company</field>
+            <field name="model_id" ref="model_gate_material_pass_line"/>
+            <field name="domain_force">['|', ('pass_id.company_id', '=', False), ('pass_id.company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>
+

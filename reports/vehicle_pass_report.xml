@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_vehicle_gate_pass" name="Vehicle Gate Pass">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Header Section -->
+                            <div class="text-center mb-4" style="border-bottom: 3px solid #2E86AB; padding-bottom: 20px;">
+                                <h1 style="color: #2E86AB; font-weight: bold; margin-bottom: 10px;">VEHICLE GATE PASS</h1>
+                                <p style="color: #666; font-size: 14px;">
+                                    <t t-if="doc.company_id">
+                                        <span t-field="doc.company_id.name"/>
+                                        <t t-if="doc.company_id.street">, <span t-field="doc.company_id.street"/></t>
+                                        <t t-if="doc.company_id.city">, <span t-field="doc.company_id.city"/></t>
+                                        <t t-if="doc.company_id.country_id">, <span t-field="doc.company_id.country_id.name"/></t>
+                                    </t>
+                                </p>
+                            </div>
+                            
+                            <!-- Pass Information -->
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <table class="table table-bordered" style="margin-bottom: 0;">
+                                        <tr>
+                                            <td style="width: 40%; background-color: #f8f9fa;"><strong>Vehicle Pass Number:</strong></td>
+                                            <td><span t-field="doc.name" style="font-weight: bold; font-size: 16px;"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Status:</strong></td>
+                                            <td>
+                                                <span t-if="doc.state == 'in'" style="color: #28a745; font-weight: bold;">✓ Checked In</span>
+                                                <span t-if="doc.state == 'out'" style="color: #6c757d;">Checked Out</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Visit Type:</strong></td>
+                                            <td>
+                                                <span t-if="doc.visit_type == 'delivery'">Delivery</span>
+                                                <span t-if="doc.visit_type == 'pickup'">Pickup</span>
+                                                <span t-if="doc.visit_type == 'service'">Service/Maintenance</span>
+                                                <span t-if="doc.visit_type == 'employee'">Employee Vehicle</span>
+                                                <span t-if="doc.visit_type == 'visitor'">Visitor Vehicle</span>
+                                                <span t-if="doc.visit_type == 'contractor'">Contractor Vehicle</span>
+                                                <span t-if="doc.visit_type == 'other'">Other</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-bordered" style="margin-bottom: 0;">
+                                        <tr>
+                                            <td style="width: 40%; background-color: #f8f9fa;"><strong>Check-In Time:</strong></td>
+                                            <td><span t-field="doc.check_in" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                        <tr t-if="doc.check_out">
+                                            <td style="background-color: #f8f9fa;"><strong>Check-Out Time:</strong></td>
+                                            <td><span t-field="doc.check_out" t-options='{"widget": "datetime"}'/></td>
+                                        </tr>
+                                        <tr t-if="doc.duration">
+                                            <td style="background-color: #f8f9fa;"><strong>Duration:</strong></td>
+                                            <td><span t-esc="'%.2f' % doc.duration"/> Hours</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Vehicle Information -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Vehicle Information</h4>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width: 20%; background-color: #f8f9fa;"><strong>Registration Number:</strong></td>
+                                            <td style="width: 30%;"><span t-field="doc.vehicle_no"/></td>
+                                            <td style="width: 20%; background-color: #f8f9fa;"><strong>Vehicle Type:</strong></td>
+                                            <td style="width: 30%;">
+                                                <span t-if="doc.vehicle_type == 'truck'">Truck</span>
+                                                <span t-if="doc.vehicle_type == 'pickup'">Pickup Truck</span>
+                                                <span t-if="doc.vehicle_type == 'loader'">Loader/Excavator</span>
+                                                <span t-if="doc.vehicle_type == 'van'">Van</span>
+                                                <span t-if="doc.vehicle_type == 'car'">Car/Sedan</span>
+                                                <span t-if="doc.vehicle_type == 'suv'">SUV</span>
+                                                <span t-if="doc.vehicle_type == 'motorcycle'">Motorcycle</span>
+                                                <span t-if="doc.vehicle_type == 'bicycle'">Bicycle</span>
+                                                <span t-if="doc.vehicle_type == 'bus'">Bus</span>
+                                                <span t-if="doc.vehicle_type == 'trailer'">Trailer</span>
+                                                <span t-if="doc.vehicle_type == 'other'">Other</span>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="doc.vehicle_make or doc.vehicle_model">
+                                            <td style="background-color: #f8f9fa;"><strong>Make:</strong></td>
+                                            <td><span t-field="doc.vehicle_make"/></td>
+                                            <td style="background-color: #f8f9fa;"><strong>Model:</strong></td>
+                                            <td><span t-field="doc.vehicle_model"/></td>
+                                        </tr>
+                                        <tr t-if="doc.vehicle_color">
+                                            <td style="background-color: #f8f9fa;"><strong>Color:</strong></td>
+                                            <td colspan="3"><span t-field="doc.vehicle_color"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Driver Information -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Driver Information</h4>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width: 20%; background-color: #f8f9fa;"><strong>Driver Name:</strong></td>
+                                            <td style="width: 30%;"><span t-field="doc.driver_name"/></td>
+                                            <td style="width: 20%; background-color: #f8f9fa;"><strong>License Number:</strong></td>
+                                            <td style="width: 30%;"><span t-field="doc.driver_license"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #f8f9fa;"><strong>Contact Number:</strong></td>
+                                            <td><span t-field="doc.driver_phone"/></td>
+                                            <td style="background-color: #f8f9fa;"><strong>Email:</strong></td>
+                                            <td><span t-field="doc.driver_email"/></td>
+                                        </tr>
+                                        <tr t-if="doc.driver_company">
+                                            <td style="background-color: #f8f9fa;"><strong>Company/Organization:</strong></td>
+                                            <td colspan="3"><span t-field="doc.driver_company"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Cargo/Material Description -->
+                            <div class="row mb-4" t-if="doc.material_description">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Cargo/Material Description</h4>
+                                    <div style="border: 1px solid #dee2e6; padding: 15px; background-color: #f8f9fa; min-height: 60px;">
+                                        <span t-field="doc.material_description"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Purpose -->
+                            <div class="row mb-4" t-if="doc.purpose">
+                                <div class="col-12">
+                                    <h4 style="color: #2E86AB; border-bottom: 2px solid #2E86AB; padding-bottom: 5px;">Purpose</h4>
+                                    <div style="border: 1px solid #dee2e6; padding: 15px; background-color: #f8f9fa; min-height: 60px;">
+                                        <span t-field="doc.purpose"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signatures -->
+                            <div class="row mt-5">
+                                <div class="col-6">
+                                    <div style="border-top: 2px solid #000; padding-top: 10px; margin-top: 60px;">
+                                        <strong>Driver Signature:</strong>
+                                        <div style="height: 50px; margin-top: 10px;"></div>
+                                        <div style="margin-top: 5px;">
+                                            <span t-field="doc.driver_name"/>
+                                        </div>
+                                        <div style="font-size: 11px; color: #666;">
+                                            <span t-field="doc.check_in" t-options='{"widget": "date"}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div style="border-top: 2px solid #000; padding-top: 10px; margin-top: 60px;">
+                                        <strong>Gate Officer Signature:</strong>
+                                        <div style="height: 50px; margin-top: 10px;"></div>
+                                        <div style="margin-top: 5px;" t-if="doc.gate_officer_id">
+                                            <span t-field="doc.gate_officer_id"/>
+                                        </div>
+                                        <div style="font-size: 11px; color: #666;" t-if="doc.check_in">
+                                            <span t-field="doc.check_in" t-options='{"widget": "date"}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Footer -->
+                            <div class="row mt-4">
+                                <div class="col-12 text-center" style="font-size: 11px; color: #666; border-top: 1px solid #dee2e6; padding-top: 10px;">
+                                    <p>This is a computer-generated document. No signature is required.</p>
+                                    <p>Generated on: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_vehicle_pass_report" model="ir.actions.report">
+        <field name="name">Vehicle Gate Pass</field>
+        <field name="model">gate.vehicle.pass</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gate_pass.report_vehicle_gate_pass</field>
+        <field name="report_file">gate_pass.report_vehicle_gate_pass</field>
+        <field name="print_report_name">'Vehicle Gate Pass - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_gate_vehicle_pass"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

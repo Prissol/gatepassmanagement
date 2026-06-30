@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vehicle Gate Pass List View -->
+    <record id="view_vehicle_pass_tree" model="ir.ui.view">
+        <field name="name">gate.vehicle.pass.tree</field>
+        <field name="model">gate.vehicle.pass</field>
+        <field name="arch" type="xml">
+            <list string="Vehicle Gate Pass" class="gate-pass-list" decoration-muted="state == 'out'" 
+                  decoration-success="state == 'in'"
+                  default_order="check_in desc">
+                <field name="name" string="Pass Number"/>
+                <field name="vehicle_no" string="Registration"/>
+                <field name="vehicle_type"/>
+                <field name="driver_name"/>
+                <field name="driver_phone" string="Driver Phone"/>
+                <field name="visit_type"/>
+                <field name="check_in" widget="datetime"/>
+                <field name="check_out" widget="datetime"/>
+                <field name="duration" string="Duration (Hrs)" widget="float"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state == 'in'"
+                       decoration-muted="state == 'out'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vehicle Gate Pass Form View -->
+    <record id="view_vehicle_pass_form" model="ir.ui.view">
+        <field name="name">gate.vehicle.pass.form</field>
+        <field name="model">gate.vehicle.pass</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle Gate Pass" class="gate-pass-form">
+                <header>
+                    <button name="action_check_in" string="Check In" type="object" 
+                            class="btn-primary" 
+                            invisible="state != 'out'"
+                            confirm="Check in this vehicle?"/>
+                    <button name="action_check_out" string="Check Out" type="object" 
+                            class="btn-secondary"
+                            invisible="state != 'in'"
+                            confirm="Check out this vehicle?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="in,out"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_vehicle_pass_report)d" type="action" 
+                                class="oe_stat_button" icon="fa-print" string="Print"/>
+                        <button type="object" name="action_check_out" 
+                                class="oe_stat_button" icon="fa-sign-out" 
+                                string="Check Out" invisible="state != 'in'"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Vehicle Information">
+                            <field name="vehicle_no" required="1" placeholder="e.g., ABC-1234"/>
+                            <field name="vehicle_type" required="1"/>
+                            <field name="vehicle_make"/>
+                            <field name="vehicle_model"/>
+                            <field name="vehicle_color"/>
+                        </group>
+                        <group string="Driver Information">
+                            <field name="driver_name" required="1"/>
+                            <field name="driver_license" string="License Number"/>
+                            <field name="driver_phone" required="1"/>
+                            <field name="driver_email" widget="email"/>
+                            <field name="driver_company" string="Driver Company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Visit Details">
+                            <field name="visit_type"/>
+                            <field name="expected_duration" string="Expected Duration (Hrs)" widget="float"/>
+                        </group>
+                        <group string="Timing">
+                            <field name="check_in" widget="datetime" required="1"/>
+                            <field name="check_out" widget="datetime"/>
+                            <field name="duration" string="Duration (Hours)" widget="float" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Cargo/Material Description">
+                        <field name="material_description" placeholder="Describe the materials or cargo being transported..."/>
+                    </group>
+                    <group string="Purpose">
+                        <field name="purpose" placeholder="Purpose for vehicle entry..."/>
+                    </group>
+                    <notebook>
+                        <page string="Gate Processing" name="gate">
+                            <group>
+                                <field name="gate_officer_id" readonly="state == 'out'"/>
+                            </group>
+                        </page>
+                        <page string="Internal Notes" name="notes" groups="gate_pass.group_gate_pass_admin,gate_pass.group_department_manager">
+                            <group>
+                                <field name="notes" placeholder="Internal notes visible only to authorized personnel..."/>
+                            </group>
+                        </page>
+                        <page string="History &amp; Tracking" name="history">
+                            <group>
+                                <group string="Timeline">
+                                    <field name="check_in" widget="datetime" readonly="1"/>
+                                    <field name="check_out" widget="datetime" readonly="1"/>
+                                    <field name="duration" widget="float" readonly="1"/>
+                                </group>
+                                <group string="Audit Trail">
+                                    <field name="create_date" widget="datetime" readonly="1"/>
+                                    <field name="write_date" widget="datetime" readonly="1"/>
+                                    <field name="create_uid" readonly="1"/>
+                                    <field name="write_uid" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vehicle Gate Pass Search View -->
+    <record id="view_vehicle_pass_search" model="ir.ui.view">
+        <field name="name">gate.vehicle.pass.search</field>
+        <field name="model">gate.vehicle.pass</field>
+        <field name="arch" type="xml">
+            <search string="Vehicle Gate Pass">
+                <field name="name" string="Pass Number"/>
+                <field name="vehicle_no" string="Registration"/>
+                <field name="vehicle_type"/>
+                <field name="vehicle_make"/>
+                <field name="vehicle_model"/>
+                <field name="driver_name"/>
+                <field name="driver_license" string="License #"/>
+                <field name="driver_phone" string="Driver Phone"/>
+                <filter string="Checked In" name="in" domain="[('state', '=', 'in')]"/>
+                <filter string="Checked Out" name="out" domain="[('state', '=', 'out')]"/>
+                <separator/>
+                <filter string="Currently Inside" name="currently_inside"
+                        domain="[('state', '=', 'in')]"/>
+                <filter string="Truck" name="truck" domain="[('vehicle_type', '=', 'truck')]"/>
+                <filter string="Today" name="today" 
+                        domain="[('check_in', '>=', datetime.datetime.now().replace(hour=0, minute=0, second=0))]"/>
+                <filter string="This Week" name="this_week"
+                        domain="[('check_in', '>=', (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="This Month" name="this_month"
+                        domain="[('check_in', '>=', datetime.datetime.now().replace(day=1).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Vehicle Type" name="group_vehicle_type" context="{'group_by': 'vehicle_type'}"/>
+                    <filter string="Visit Type" name="group_visit_type" context="{'group_by': 'visit_type'}"/>
+                    <filter string="Check In Date" name="group_check_in" context="{'group_by': 'check_in'}"/>
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vehicle Gate Pass Action -->
+    <record id="action_vehicle_pass" model="ir.actions.act_window">
+        <field name="name">Vehicle Gate Pass</field>
+        <field name="res_model">gate.vehicle.pass</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_state': 'in', 'default_visit_type': 'delivery'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Vehicle Gate Pass!
+            </p>
+            <p>
+                Track vehicle entry and exit with comprehensive vehicle and driver information.
+                <ul>
+                    <li>Record detailed vehicle and driver information</li>
+                    <li>Track check-in and check-out times</li>
+                    <li>Monitor vehicle duration and cargo details</li>
+                    <li>Generate professional vehicle gate passes</li>
+                </ul>
+            </p>
+        </field>
+    </record>
+</odoo>
