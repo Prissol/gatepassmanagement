@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Visitor Gate Pass List View -->
     <record id="view_visitor_pass_tree" model="ir.ui.view">
@@ -103,7 +103,7 @@
                                 <field name="gate_officer_id" readonly="state == 'out'"/>
                             </group>
                         </page>
-                        <page string="Internal Notes" name="notes" groups="gate_pass.group_gate_pass_admin,gate_pass.group_department_manager">
+                        <page string="Internal Notes" name="notes" groups="prissol_gate_pass.group_gate_pass_admin,prissol_gate_pass.group_department_manager">
                             <group>
                                 <field name="notes" placeholder="Internal notes visible only to authorized personnel..."/>
                             </group>

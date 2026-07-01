@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_visitor_gate_pass" name="Visitor Gate Pass">
         <t t-call="web.html_container">
@@ -191,8 +191,8 @@
         <field name="name">Visitor Gate Pass</field>
         <field name="model">gate.visitor.pass</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">gate_pass.report_visitor_gate_pass</field>
-        <field name="report_file">gate_pass.report_visitor_gate_pass</field>
+        <field name="report_name">prissol_gate_pass.report_visitor_gate_pass</field>
+        <field name="report_file">prissol_gate_pass.report_visitor_gate_pass</field>
         <field name="print_report_name">'Visitor Gate Pass - %s' % (object.name)</field>
         <field name="binding_model_id" ref="model_gate_visitor_pass"/>
         <field name="binding_type">report</field>
