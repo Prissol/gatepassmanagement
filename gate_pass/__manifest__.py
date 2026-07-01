@@ -1,6 +1,6 @@
 {
     'name': 'Gate Pass Management',
-    'version': '18.0.1.0.30',
+    'version': '18.0.1.0.31',
     'category': 'Operations',
     'summary': 'Material, visitor and vehicle gate pass management with approval workflow',
     'description': """
@@ -50,6 +50,6 @@ Features
     'application': True,
     'auto_install': False,
     'license': 'OPL-1',
-    'price': 25.00,
+    'price': 20.00,
     'currency': 'USD',
 }
