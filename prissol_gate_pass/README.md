@@ -1,4 +1,4 @@
-﻿# Gate Pass Management System
+# Gate Pass Management System
 
 A comprehensive, enterprise-grade gate pass management solution for Odoo 18.0 that provides complete tracking and management of material movements, visitor access, and vehicle entries/exits.
 
